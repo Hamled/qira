@@ -8,8 +8,11 @@ else
   echo "*** You'll need to install Ubuntu or get a working build env for qemu and python yourself ***"
 fi
 
-echo "building python venv"
-virtualenv venv
+if [[ ! -d venv ]]; then
+  echo "creating python venv"
+  virtualenv venv
+fi
+
 source venv/bin/activate
 
 # build qemu
