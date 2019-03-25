@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get -y install build-essential git curl python python-virtualenv python-dev
 
 # fetch qira
-RUN git clone https://github.com/geohot/qira.git --depth=1
+COPY . /qira
 WORKDIR /qira
 
 # build qemu

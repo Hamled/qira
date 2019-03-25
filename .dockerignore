@@ -1,0 +1,2 @@
+# Don't send host virtualenv to Docker build context
+/venv
