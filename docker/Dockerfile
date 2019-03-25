@@ -9,7 +9,7 @@ RUN git clone https://github.com/geohot/qira.git --depth=1
 WORKDIR /qira
 
 # build qemu
-RUN apt-get -y install pkg-config zlib1g-dev libglib2.0-dev libpixman-1-dev
+RUN apt-get -y install pkg-config zlib1g-dev libglib2.0-dev libpixman-1-dev libcapstone-dev
 RUN cd tracers && ./qemu_build.sh
 
 # install python packages and link qira
