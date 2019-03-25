@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # install system deps
-if [ $(which apt-get) ]; then
+if [ $(which apt-get 2>/dev/null) ]; then
   echo "installing deps for ubuntu"
   sudo apt-get -y install git curl python python-virtualenv python-dev build-essential pkg-config zlib1g-dev libglib2.0-dev libpixman-1-dev
 else
