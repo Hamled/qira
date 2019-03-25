@@ -17,7 +17,7 @@ source venv/bin/activate
 
 # build qemu
 if [[ "$(uname)" == 'Linux' ]]; then
-  if [ $(tracers/qemu/qira-i386 > /dev/null; echo $?) == 1 ]; then
+  if [[ -e "tracers/qemu/qira-i386" && $(tracers/qemu/qira-i386 > /dev/null; echo $?) == 1 ]]; then
     echo "QIRA QEMU appears to run okay"
   else
     echo "building QEMU"
@@ -48,4 +48,3 @@ echo "  Check out README for more info"
 echo "  Or just dive in with 'qira /bin/ls'"
 echo "  And point Chrome to localhost:3002"
 echo "    ~geohot"
-
