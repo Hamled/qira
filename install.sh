@@ -8,6 +8,10 @@ else
   echo "*** You'll need to install Ubuntu or get a working build env for qemu and python yourself ***"
 fi
 
+echo "building python venv"
+virtualenv venv
+source venv/bin/activate
+
 # build qemu
 if [[ "$(uname)" == 'Linux' ]]; then
   if [ $(tracers/qemu/qira-i386 > /dev/null; echo $?) == 1 ]; then
@@ -25,9 +29,7 @@ else
   echo "See other backends in qira/tracers, PIN may work on Windows and OS X"
 fi
 
-echo "building python venv"
-virtualenv venv
-source venv/bin/activate
+echo "installing python dependencies"
 pip install --upgrade pip
 pip install --upgrade -r requirements.txt
 
