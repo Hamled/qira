@@ -562,7 +562,7 @@ def slice(trace, inclnum):
 
 if __name__ == "__main__":
   # can run standalone for testing
-  program = qira_program.Program("/tmp/qira_binary", [])
+  program = qira_program.Program("/tmp/qira_binary")
   trace = program.add_trace("/tmp/qira_logs/0", 0)
   while not trace.db.did_update():
     time.sleep(0.1)
