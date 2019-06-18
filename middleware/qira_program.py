@@ -40,7 +40,7 @@ def which(prog):
 
 # things that don't cross the fork
 class Program:
-  def __init__(self, prog, args=[], qemu_args=[]):
+  def __init__(self, prog, args=[], qemu_args={}):
     # create the logs dir
     try:
       os.mkdir(qira_config.TRACE_FILE_BASE)
@@ -76,7 +76,11 @@ class Program:
         pass
 
     # defaultargs for qira binary
-    self.defaultargs = ["-strace", "-D", "/dev/null", "-d", "in_asm", "-singlestep"]+qemu_args
+    logs = ["in_asm"]+qemu_args.get("logs", [])
+    self.defaultargs = ["-strace",
+                        "-D", "/dev/null",
+                        "-d", ",".join(logs),
+                        "-singlestep"]+qemu_args.get("args", [])
     if qira_config.TRACE_LIBRARIES:
       self.defaultargs.append("-tracelibraries")
 

@@ -28,6 +28,7 @@ if __name__ == '__main__':
   parser.add_argument("--web-port", metavar="PORT", help="listen port for web interface. 3002 by default", type=int, default=qira_config.WEB_PORT)
   parser.add_argument("--socat-port", metavar="PORT", help="listen port for socat. 4000 by default", type=int, default=qira_config.SOCAT_PORT)
   parser.add_argument('-S', '--static', help="enable static2", action="store_true")
+  parser.add_argument('-v', '--verbose', help="enable debug logging", action="store_true")
   #capstone flag in qira_config for now
 
   # parse arguments, first try
@@ -73,10 +74,13 @@ if __name__ == '__main__':
     os.system("rm -rfv /tmp/qira*")
 
   # qemu args from command line
-  qemu_args = []
+  qemu_args = { "args": [], "logs": [] }
   if args.gate_trace != None:
-    qemu_args.append("-gatetrace")
-    qemu_args.append(args.gate_trace)
+    qemu_args["args"].append("-gatetrace")
+    qemu_args["args"].append(args.gate_trace)
+  if args.verbose != None:
+    qemu_args["args"].extend(["-D", "/tmp/qira_logs/qemu"])
+    qemu_args["logs"].append("qira")
 
   # creates the file symlink, program is constant through server run
   program = qira_program.Program(args.binary, args.args, qemu_args)
