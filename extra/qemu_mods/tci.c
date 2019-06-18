@@ -576,6 +576,7 @@ struct change *add_change(target_ulong addr, uint64_t data, uint32_t flags) {
     resize_change_buffer(GLOBAL_change_size * sizeof(struct change) * 2);
     GLOBAL_change_size *= 2;
   }
+  QIRA_DEBUG("chng:  0x%x:%x = 0x%lX\n", addr, flags, data);
   struct change *this_change = GLOBAL_change_buffer + cc;
   this_change->address = (uint64_t)addr;
   this_change->data = data;
@@ -604,7 +605,7 @@ void commit_pending_changes(void) {
 struct change *track_syscall_begin(void *env, target_ulong sysnr);
 struct change *track_syscall_begin(void *env, target_ulong sysnr) {
   int i;
-  QIRA_DEBUG("syscall: %d\n", sysnr);
+  QIRA_DEBUG("sysc:  %d\n", sysnr);
   if (GLOBAL_logstate->is_filtered == 1) {
     for (i = 0; i < 0x20; i+=4) {
       add_change(i, *(target_ulong*)(env+i), IS_WRITE | (sizeof(target_ulong)*8));
