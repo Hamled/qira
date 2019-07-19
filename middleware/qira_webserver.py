@@ -75,9 +75,10 @@ def push_updates(full = True):
 def mwpoll():
   # poll for new traces, call this every once in a while
   for i in os.listdir(qira_config.TRACE_FILE_BASE):
-    if "_" in i:
+    try:
+      i = int(i)
+    except ValueError:
       continue
-    i = int(i)
 
     if i not in program.traces:
       program.add_trace(qira_config.TRACE_FILE_BASE+str(i), i)
